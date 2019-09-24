@@ -1,25 +1,5 @@
 import React, { useReducer, useState } from 'react';
-import uuid from 'uuid/v4';
-
-const initialState = {
-    toDos : []
-};
-
-const ADD = 'add';
-const DEL = 'del';
-
-const reducer = (state, action) => {
-    switch (action.type) {
-        case ADD : 
-            return { toDos : [...state.toDos, { id : uuid(), text : action.payload }] };             // anti mutation
-
-        case DEL : 
-            return { toDos : state.toDos.filter(toDo => toDo.id !== action.payload) };
-
-        default : 
-            return;
-    }
-};
+import reducer, { initialState, ADD, DEL, COMPLETE } from './reducer';
 
 function App() {
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -47,9 +27,26 @@ function App() {
                 { state.toDos.map((toDo) => (
                     <li key={ toDo.id }>
                         <span>{ toDo.text }</span>
-                        <button onClick={ () => dispatch({ type : DEL, payload : toDo.id }) }>❌</button>
+                        <span onClick={ () => dispatch({ type : DEL, payload : toDo.id }) }>❌</span>
+                        <span onClick={ () => dispatch({ type : COMPLETE, payload : toDo.id }) }>✅</span>
                     </li>
                 )) }
+            </ul>
+            <ul>
+                {
+                    state.completed.length !== 0 && (
+                        <>
+                            <h2>Completed</h2>
+                            { state.completed.map((toDo) => (
+                                <li key={ toDo.id }>
+                                    <span>{ toDo.text }</span>
+                                    <span onClick={ () => dispatch({ type : DEL, payload : toDo.id }) }>❌</span>
+                                    <span onClick={ () => dispatch({ type : DEL, payload : toDo.id }) }>🙅🏼‍♂️</span>
+                                </li>
+                            )) }
+                        </>
+                    )
+                }
             </ul>
         </>
     );
