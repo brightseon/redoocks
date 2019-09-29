@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from 'react';
-import reducer, { initialState, ADD, DEL, COMPLETE } from './reducer';
+import reducer, { initialState, ADD, DEL, COMPLETE, UNCOMPLETE } from './reducer';
 
 function App() {
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -27,8 +27,8 @@ function App() {
                 { state.toDos.map((toDo) => (
                     <li key={ toDo.id }>
                         <span>{ toDo.text }</span>
-                        <span onClick={ () => dispatch({ type : DEL, payload : toDo.id }) }>❌</span>
-                        <span onClick={ () => dispatch({ type : COMPLETE, payload : toDo.id }) }>✅</span>
+                        <span role="img" aria-label="" onClick={ () => dispatch({ type : DEL, payload : toDo.id }) }>❌</span>
+                        <span role="img" aria-label="" onClick={ () => dispatch({ type : COMPLETE, payload : toDo.id }) }>✅</span>
                     </li>
                 )) }
             </ul>
@@ -40,8 +40,8 @@ function App() {
                             { state.completed.map((toDo) => (
                                 <li key={ toDo.id }>
                                     <span>{ toDo.text }</span>
-                                    <span onClick={ () => dispatch({ type : DEL, payload : toDo.id }) }>❌</span>
-                                    <span onClick={ () => dispatch({ type : DEL, payload : toDo.id }) }>🙅🏼‍♂️</span>
+                                    <span role="img" aria-label="" onClick={ () => dispatch({ type : DEL, payload : toDo.id }) }>❌</span>
+                                    <span role="img" aria-label="" onClick={ () => dispatch({ type : UNCOMPLETE, payload : toDo.id }) }>🙅🏼‍♂️</span>
                                 </li>
                             )) }
                         </>
