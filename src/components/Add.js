@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
-import { ADD } from './reducer';
-import { useDispatch } from './context';
+import React, { useState } from 'react';
+import { ADD } from '../actions';
+import { useDispatch } from '../context';
 
 export default  () => {
     const [newToDo, setNewToDo] = useState('');

@@ -15,4 +15,10 @@ export const useDispatch = () => {
     return dispatch;
 };
 
+export const useState = () => {
+    const { state } = useContext(ToDosContext);
+
+    return state;
+};
+
 export default ToDosProvider;
